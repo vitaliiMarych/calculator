@@ -1,7 +1,6 @@
-
-
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class calcBack {
@@ -11,7 +10,7 @@ public class calcBack {
 		String[] calc = new String[3];
 		
 		try {
-			Scanner scFile = new Scanner(new File("D:\\file.txt"));
+			Scanner scFile = new Scanner(new File("file.txt"));
 			
 	    	calc = scFile.nextLine().split(" ");
 	    	
@@ -26,47 +25,54 @@ public class calcBack {
     	double a,b;
     	String signs = "/*-+";
     	
-    	try {
-    		
-    		a = Double.valueOf(calc[0]);
-    		
-    		if (signs.indexOf(calc[1]) == -1)
-    			throw new Exception("Operation Error!");
-    		
-    		b = Double.valueOf(calc[2]);
-    		
-    		if (b == 0 && calc[1].equals("/"))
-    			throw new Exception("Error! Division by zero");
-    		
-    		switch (calc[1]) {
-    		
-    		case ("+"): 
-    			System.out.print(a + b);
-    			break;
-    			
-    		case ("-"): 
-    			System.out.print(a - b);
-    			break;
-    		
-    		case ("/"): 
-    			System.out.print(a / b);
-    			break;
-    		
-    		case ("*"): 
-    			System.out.print(a * b);
-    			break;
-    		}
-    		
+    	try (FileWriter  pw = new FileWriter ("file.txt", false)) {
+    	
+	    	try {
+	    		
+	    		a = Double.valueOf(calc[0]);
+	    		
+	    		if (signs.indexOf(calc[1]) == -1)
+	    			throw new Exception("Operation Error!");
+	    		
+	    		b = Double.valueOf(calc[2]);
+	    		
+	    		if (b == 0 && calc[1].equals("/"))
+	    			throw new Exception("Error! Division by zero");
+	    		
+	    		switch (calc[1]) {
+	    		
+	    		case ("+"): 
+	    			pw.write(Double.toString(a + b));
+	    			break;
+	    			
+	    		case ("-"): 
+	    			pw.write(Double.toString(a - b));
+	    			break;
+	    		
+	    		case ("/"): 
+	    			pw.write(Double.toString(a / b));
+	    			break;
+	    		
+	    		case ("*"): 
+	    			pw.write(Double.toString(a * b));
+	    			break;
+	    		}
+	    		
+	    	}
+	    	
+	    	catch (NumberFormatException e) {
+	    		pw.write("Error! Not number");
+	    	}
+	    	
+	    	catch (Exception e) {
+	    		pw.write(e.getMessage());
+	    	}
     	}
     	
-    	catch (NumberFormatException e) {
-    		System.out.println("Error! Not number");
-    	}
+        catch(IOException e){	
+            System.out.println(e.getMessage());
+        } 
     	
-    	catch (Exception e) {
-    		System.out.println(e.getMessage());
-    	}
-
 	}
 
 }
