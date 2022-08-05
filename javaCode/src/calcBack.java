@@ -1,13 +1,27 @@
 
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class calcBack {
 
 	public static void main(String[] args) throws Exception {
     	
-    	Scanner sc = new Scanner(System.in);
-    	
-    	String[] calc = sc.nextLine().split(" ");
+		String[] calc = new String[3];
+		
+		try {
+			Scanner scFile = new Scanner(new File("D:\\file.txt"));
+			
+	    	calc = scFile.nextLine().split(" ");
+	    	
+	    	scFile.close();
+		}
+		
+		catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
     	
     	double a,b;
     	String signs = "/*-+";
