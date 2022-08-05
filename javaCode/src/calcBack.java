@@ -9,13 +9,9 @@ public class calcBack {
     	
 		String[] calc = new String[3];
 		
-		try {
-			Scanner scFile = new Scanner(new File("file.txt"));
-			
-	    	calc = scFile.nextLine().split(" ");
-	    	
-	    	scFile.close();
-		}
+		try (Scanner scFile = new Scanner(new File("input.txt"))){
+	    	calc = scFile.nextLine().split(" ");	
+	    }
 		
 		catch (Exception e) {
 	        e.printStackTrace();
@@ -25,7 +21,7 @@ public class calcBack {
     	double a,b;
     	String signs = "/*-+";
     	
-    	try (FileWriter  pw = new FileWriter ("file.txt", false)) {
+    	try (FileWriter  pw = new FileWriter ("output.txt", false)) {
     	
 	    	try {
 	    		
